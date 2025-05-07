@@ -23,7 +23,8 @@ class mainGame extends Phaser.Scene {
         this.load.image("enemyBig", "ship_0014.png");
         this.load.image("eBigBullet", "tile_0015.png");
         this.load.image("background", "https://static.vecteezy.com/system/resources/previews/042/818/355/non_2x/8bit-pixel-graphic-blue-sky-background-with-clouds-vector.jpg");
-
+        this.load.audio("playerShoot", "footstep_snow_002.ogg");
+        this.load.audio("enemyShoot", "footstep_snow_002.ogg");
     }
 
     create() {
@@ -99,6 +100,10 @@ class mainGame extends Phaser.Scene {
             my.sprite.pBullet.x = my.sprite.player.x;
             my.sprite.pBullet.y = my.sprite.player.y - my.sprite.player.displayHeight/2;
             my.sprite.pBullet.visible = true;
+
+            this.sound.play("playerShoot", {
+                volume: 0.1
+            });
         }
 
         if (this.bulletActive) {
@@ -239,6 +244,10 @@ class mainGame extends Phaser.Scene {
                         let bullet = this.add.sprite(enemy.x, enemy.y + enemy.displayHeight / 2, enemyData.bulletKey);
                         bullet.setData("speed", 2);
                         my.eBullets.push(bullet);
+
+                        this.sound.play("playerShoot", {
+                            volume: 0.1
+                        });
                     }
 
                     if (enemy.y > 650 || enemy.x < -50 || enemy.x > 850) {
